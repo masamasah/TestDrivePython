@@ -21,6 +21,19 @@ def test_add_2(task):
     assert equivalent(t_from_db, task)
 
 
+@pytest.mark.parametrize('summary, owner, done', [('sleep',None, False),
+                                                 ('wake', 'brian', False),
+                                                 ('breath', 'BRIAN', True),
+                                                 ('eat eggs', 'BrIaN', False),
+                                                 ])
+def test_add_3(summary, owner, done):
+    """Demonstate parameterize with multiple parameters."""
+    task = Task(summary, owner, done)
+    task_id = tasks.add(task)
+    t_from_db = tasks.get(task_id)
+    assert equivalent(t_from_db, task)
+
+
 def equivalent(t1, t2):
     """Check two tasks for equivalance."""
     return ((t1.summary == t2.summary) and (t1.owner == t2.owner) and (t1.done == t2.done))
