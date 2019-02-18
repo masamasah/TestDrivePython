@@ -55,6 +55,22 @@ def test_add_5(task):
     assert equivalent(t_from_db, task)
 
 
+@pytest.mark.parametrize('task', tasks_to_try, ids=tasks_ids)
+class TestAdd():
+    """Demonstrate parametrize and test classes."""
+
+    def test_equivalent(self, task):
+        """Similar test, just within a class."""
+        task_id = tasks.add(task)
+        t_from_db = tasks.get(task_id)
+        assert equivalent(t_from_db, task)
+
+    def test_valid_id(self, task):
+        """We can use the same data from multiple tests."""
+        task_id = tasks.add(task)
+        t_from_db = tasks.get(task_id)
+        assert t_from_db.id == task_id
+
 def equivalent(t1, t2):
     """Check two tasks for equivalance."""
     return ((t1.summary == t2.summary) and (t1.owner == t2.owner) and (t1.done == t2.done))
