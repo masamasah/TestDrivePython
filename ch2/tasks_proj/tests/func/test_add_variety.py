@@ -71,6 +71,16 @@ class TestAdd():
         t_from_db = tasks.get(task_id)
         assert t_from_db.id == task_id
 
+@pytest.mark.parametrize('task', [pytest.param(Task('create'), id = 'just summary'),
+                                  pytest.param(Task('inspire', 'Michelle'), id = 'summary/owner'),
+                                  pytest.param(Task('encourage', 'Michelle', True), id = 'summary/owner/done')])
+def test_add_6(task):
+    """Demonstrate pytest.param and id."""
+    task_id = tasks.add(task)
+    t_from_db = tasks.get(task_id)
+    assert equivalent(t_from_db, task)
+
+
 def equivalent(t1, t2):
     """Check two tasks for equivalance."""
     return ((t1.summary == t2.summary) and (t1.owner == t2.owner) and (t1.done == t2.done))
