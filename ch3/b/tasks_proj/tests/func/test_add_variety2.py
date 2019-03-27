@@ -34,3 +34,19 @@ def test_add_b(tasks_db, b_task):
     task_id = tasks.add(b_task)
     t_from_db = tasks.get(task_id)
     assert equivalent(t_from_db, b_task)
+
+def id_func(fixture_value):
+    """A function for generating ids."""
+    t = fixture_value
+    return 'TASK({},{},{})'.format(t.summary, t.owner, t.done)
+
+@pytest.fixture(params=tasks_to_try, ids=id_func)
+def c_task(request):
+    """Using a function (id_func) to generate ids."""
+    return request.param
+
+def test_add_c(tasks_db, c_task):
+    """Using fixture with generated ids."""
+    task_id = tasks.add(c_task)
+    t_fromdb = tasks.get(task_id)
+    assert equivalent(t_fromdb, c_task)
