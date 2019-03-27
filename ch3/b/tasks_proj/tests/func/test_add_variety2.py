@@ -7,7 +7,7 @@ tasks_to_try = (Task('sleep', done=True),
                 Task('breathe', 'BRIAN', True),
                 Task('exercise', 'BrIaN', False))
 
-task_ids = ['TASK({}{}{})'.format(t.summary, t.owner, t.done) for t in tasks_to_try]
+task_ids = ['TASK({},{},{})'.format(t.summary, t.owner, t.done) for t in tasks_to_try]
 
 def equivalent(t1, t2):
     """Check two tasks for equivalance"""
