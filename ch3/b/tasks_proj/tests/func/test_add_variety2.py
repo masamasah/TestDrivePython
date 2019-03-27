@@ -23,3 +23,14 @@ def test_add_a(tasks_db, a_task):
     task_id = tasks.add(a_task)
     t_from_db = tasks.get(task_id)
     assert equivalent(t_from_db, a_task)
+
+@pytest.fixture(params=tasks_to_try, ids=task_ids)
+def b_task(request):
+    """Using b_task fixture, with ids."""
+    return request.param
+
+def test_add_b(tasks_db, b_task):
+    """Using b_task fixture, with ids."""
+    task_id = tasks.add(b_task)
+    t_from_db = tasks.get(task_id)
+    assert equivalent(t_from_db, b_task)
