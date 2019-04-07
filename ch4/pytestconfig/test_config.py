@@ -15,3 +15,14 @@ def myopt(pytestconfig):
 def test_fixtures_for_options(foo, myopt):
     print('"foo" set to:', foo)
     print('"myopt" set to:', myopt)
+
+def test_pytestconfig(pytestconfig):
+    print('args:', pytestconfig.args)
+    print('inifile:', pytestconfig.inifile)
+    print('invocation_dir:',pytestconfig.invocation_dir)
+    print('rootdir:', pytestconfig.rootdir)
+    print('-k EXPRESSON:', pytestconfig.getoption('keyword'))
+    print('-v, --verbose:', pytestconfig.getoption('verbose'))
+    print('-q, --quiet:', pytestconfig.getoption('quiet'))
+    print('-l, --showlocals:', pytestconfig.getoption('showlocals'))
+    print('--tb=style:', pytestconfig.getoption('tbstyle'))
